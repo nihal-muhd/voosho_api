@@ -1,0 +1,8 @@
+Flow
+-> /signup -user signup using email and phone, email used as username and phone number for otp verification -> Otp generated
+
+-> /verify-otp - otp verification & user data (req.body) storing in db
+
+->Redirected to login page
+
+->/login -verifying entered credentials through middlewares.
