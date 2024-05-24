@@ -6,3 +6,12 @@ Flow
 ->Redirected to login page
 
 ->/login -verifying entered credentials through middlewares.
+
+->/profile -user profile view and managing.
+
+          -->/profile/updateInfo -(post method)-User bio update
+          -->/profile/profile-picture -(post method)-User profile update.
+          -->/profile/:id -(get method)-User profile view.
+          -->/profiile/privacy/:id -(post method)-User privacy updation
+
+->/view-profile -Verifying current user is admin or not and checking if the profile is public or not through middlewar(authorizeViewProfile)
