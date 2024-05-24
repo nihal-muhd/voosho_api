@@ -1,10 +1,10 @@
 import express from 'express'
-import { authenticate, createToken, validate, verify } from '../middlewares/auth.js'
+import { authenticate, createToken, validate, verify } from '../middlewares/login.auth.js'
 import UserModel from '../../../models/userModel.js';
 
 const userLogin = express.Router()
 
-userLogin.use('/', validate, verify, authenticate, createToken, async (req, res) => {
+userLogin.post('/', validate, verify, authenticate, createToken, async (req, res) => {
     try {
         const user = req.body;
         await UserModel.findByIdAndUpdate(user._id, { online: true });

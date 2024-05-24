@@ -1,6 +1,9 @@
+import express from 'express'
 import UserModel from "../../../models/userModel.js"
 
-const userSignOut = async (req, res) => {
+const userSignOut = express.Router()
+
+userSignOut.post('/', async (req, res) => {
     try {
         const user = req.body;
         await UserModel.findByIdAndUpdate(user._id, { online: false });
@@ -9,5 +12,5 @@ const userSignOut = async (req, res) => {
     } catch (error) {
         res.status(500).send({ message: 'Internal server error' })
     }
-}
+})
 export default userSignOut

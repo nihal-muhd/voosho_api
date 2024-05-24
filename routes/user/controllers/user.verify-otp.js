@@ -1,6 +1,8 @@
+import express from 'express'
 import { verifyOtp } from "../../../tools/otp.js"
 
-const userVerify = async (req, res) => {
+const userVerify = express.Router()
+userVerify.post('/', async (req, res) => {
     try {
         const result = await verifyOtp(req.body.otp)
         if (result) {
@@ -10,17 +12,17 @@ const userVerify = async (req, res) => {
             userData.confirmPassword = await bcrypt.hash(userData.confirmPassword, salt)
             userData.Active = true
             await UserModel.create(userData)
-            res.status(201).json({
+            res.status(201).send({
                 status: 'signup completed'
             })
         } else {
-            res.status(401).json({
+            res.status(401).send({
                 status: 'otp verification failed'
             })
         }
     } catch (error) {
         res.status(500).send({ message: 'Internal server error' })
     }
-}
+})
 
 export default userVerify

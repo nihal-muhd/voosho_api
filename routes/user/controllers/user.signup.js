@@ -1,6 +1,8 @@
+import express from 'express'
 import { doSms } from "../../../tools/otp.js"
 
-const userSignUp = async (req, res) => {
+const userSignUp = express.Router()
+userSignUp.post('/', async (req, res) => {
     try {
         const userVerify = await UserModel.findOne({
             $or: [
@@ -9,13 +11,13 @@ const userSignUp = async (req, res) => {
             ]
         })
         if (userVerify) {
-            res.status(401).json({
+            res.status(401).send({
                 status: 'Email or mobile number already exist'
             })
         } else {
             const data = await doSms(req.body)
             if (data) {
-                res.status(201).json({
+                res.status(201).send({
                     status: 'otp generated'
                 })
             }
@@ -23,5 +25,5 @@ const userSignUp = async (req, res) => {
     } catch (err) {
         res.status(500).send({ message: 'Internal server error' })
     }
-}
+})
 export default userSignUp
